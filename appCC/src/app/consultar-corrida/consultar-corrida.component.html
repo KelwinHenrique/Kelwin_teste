@@ -1,0 +1,24 @@
+<h3 class="text-center">Corridas</h3>
+<div class="form-group row">
+    <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" placeholder="Buscar pelo CPF do Motorista" (input)="buscaCPF($event)">
+
+  </div>
+</div>
+<table class="table">
+  <thead class="thead-inverse">
+    <tr>
+      <th>CPF Motorista</th>
+      <th>CPF Passageiro</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let corrida of corridasFiltro">
+      <th scope="row">{{corrida.cpf_motorista}}</th>
+      <td>{{corrida.cpf_passageiro}}</td>
+      <td>{{corrida.valor}}</td>
+    </tr>
+  </tbody>
+</table>

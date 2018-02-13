@@ -1,0 +1,76 @@
+<div *ngIf="dadosEnviados == 0">
+    <h3 class="text-center">Cadastro de Motorista</h3>
+    <form novalidate #formulario="ngForm" (ngSubmit)="confirmarInscricao(formulario)">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nome Completo:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Digite aqui o seu nome completo" name="nomeCompleto" ngModel required
+                    minlength="5" maxlength="250" #inputNomeCompleto="ngModel" (input)="verificaFormulario(formulario)">
+                <small *ngIf="inputNomeCompleto.valid && inputNomeCompleto.touched" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputNomeCompleto.valid && inputNomeCompleto.touched" class="form-text text-danger">Nome inválido</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">CPF:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Somente números" name="cpf" ngModel required minlength="11" maxlength="11"
+                    #inputCpf="ngModel" (input)="testaCPF(formulario)">
+                <small *ngIf="inputCpf.valid && inputCpf.touched && cpfValido==1" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputCpf.valid && inputCpf.touched || (cpfValido==0  && inputCpf.touched) " class="form-text text-danger">CPF inválido</small>
+            </div>
+            <label class="col-sm-2 col-form-label">Data de Nascimento:</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="dataNascimento" ngModel required #inputDataNasc="ngModel" (input)="verificaFormulario(formulario)">
+                <small *ngIf="inputDataNasc.valid && inputDataNasc.touched" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputDataNasc.valid && inputDataNasc.touched" class="form-text text-danger">Data de nascimento inválida</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Modelo do carro:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Digite aqui o modelo do carro" name="modeloCarro" ngModel required minlength="2"
+                    maxlength="250" #inputModeloCarro="ngModel" (input)="verificaFormulario(formulario)">
+                <small *ngIf="inputModeloCarro.valid && inputModeloCarro.touched" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputModeloCarro.valid && inputModeloCarro.touched" class="form-text text-danger">Modelo inválido</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputsexo" class="col-sm-2 col-form-label">Sexo:</label>
+            <div class="form-group col-md-4">
+                <select class="form-control" name="sexo" ngModel required #inputsexo="ngModel" (change)="verificaFormulario(formulario)">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                </select>
+                <small *ngIf="inputsexo.valid && inputsexo.touched" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputsexo.valid && inputsexo.touched" class="form-text text-danger">Selecione alguma das opções</small>
+            </div>
+            <label for="inputstatus" class="col-sm-1 col-form-label">Status</label>
+            <div class="form-group col-md-5">
+                <select class="form-control" name="status" ngModel required #inputstatus="ngModel" (change)="verificaFormulario(formulario)">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                </select>
+                <small *ngIf="inputstatus.valid && inputstatus.touched" class="form-text text-success">Ok</small>
+                <small *ngIf="!inputstatus.valid && inputstatus.touched" class="form-text text-danger">Selecione alguma das opções</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" [disabled]="formEstado">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<div class="container" *ngIf="dadosEnviados == 1">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Dados cadastrados com sucesso!</h4>
+      <hr>
+      <p class="mb-0">Caso tenha alguma dúvida, entrar em contato com atendimento@corridascompartilhadas.com.br.</p>
+      <br>
+      <button type="button" class="btn btn-primary btn-lg btn-block" routerLink = "/">Voltar</button>
+    </div>
+  </div>
